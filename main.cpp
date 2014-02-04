@@ -1,3 +1,6 @@
+#include <iostream>
+#include <typeinfo>
+
 //Lambda calculus AST
 template<typename Id>
 struct Var {};
@@ -106,14 +109,10 @@ public:
 template<typename Env, typename Term>
 struct Eval {};
 
-//Variable: TODO: Check to avoid infinite recursion
 template<typename Env, typename Id>
 struct Eval<Env, Var<Id>> {
 private:
-	using T = typename Assoc<
-		Id,
-		Env
-	>::result;
+	using T = typename Assoc<Id, Env>::result;
 
 	template<typename T>
 	struct Identity {
@@ -144,12 +143,7 @@ public:
 	using result = Abs<
 		X2,
 		typename Eval<
-			List<
-				Pair<
-					X2,
-					Var<X2>
-				>,
-			Env2>,
+			List<Pair<X2, Var<X2>>, Env2>,
 			T
 		>::result
 	>;
@@ -169,10 +163,7 @@ private:
 
 public:
 	using result = typename Eval<
-		List<
-			Pair<X2, T2>,
-			Env2
-		>,
+		List<Pair<X2, T2>, Env2>,
 		T
 	>::result;
 };
@@ -182,26 +173,23 @@ struct Eval<Env, App<T1, T2>> : EvalApp<Env, typename Eval<Env, T1>::result, typ
 
 int main(int argc, char* argv[]) {
 
-	//Example: Applying the identity function
-	//((lam x.x) y) = y
+	//Example:
+	//Applying the looping combinator (lam x. x x)(lam x. x x) results
+	//in infinite looping and will throw off any compiler!
 	using X = Id<0>;
-	using Y = Id<1>;
 	Eval<
-		List<
-			Pair<
-				Y,
-				Var<Y>
-			>,
-			Nil
-		>,
+		Nil,
 		App<
 			Abs<
 				X,
-				Var<X>
+				App<Var<X>, Var<X>>
 			>,
-			Var<Y>
+			Abs<
+				X,
+				App<Var<X>, Var<X>>
+			>
 		>
-	>::result k;
+	>::result();
 
 	return 0;
 }
