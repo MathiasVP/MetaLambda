@@ -1,7 +1,7 @@
 MetaLambda
 ==========
 
-Untyped lambda calculus implementation in compile time C++
+Untyped lambda calculus implementation in C++ using template metaprogramming
 
 # Examples
 The syntax is written entirely in C++ types, and thus the syntax is horrible.
