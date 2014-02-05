@@ -4,14 +4,14 @@ MetaLambda
 Untyped lambda calculus implementation in C++ using template metaprogramming
 
 # Examples
-The syntax is written entirely in C++ types, and thus the syntax is horrible.
+The syntax is written entirely in C++ types and thus it is, by definition, horrible.
 
 ## Defining identifiers and variables
 Defining the identifier X is done using the templated `Id` struct which has an integer that definesd comparison between identifiers. Thus
 ```cpp
 	using X = Id<0>;
 ```
-Defines the identifier X, which can be used to create variables using the `Var` struct like so
+defines the identifier X, which can be used to create variables using the `Var` struct like so
 ```cpp
 	using X = Id<0>;
 	using VarX = Var<X>;
