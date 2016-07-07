@@ -7,7 +7,7 @@ Untyped lambda calculus implementation in C++ using template metaprogramming
 The syntax is written entirely in C++ types and thus it is, by definition, horrible.
 
 ## Defining identifiers and variables
-Defining the identifier X is done using the templated `Id` struct which has an integer that definesd comparison between identifiers. Thus
+Defining the identifier X is done using the templated `Id` struct which has an integer that defines equality between identifiers. Thus
 ```cpp
 	using X = Id<0>;
 ```
